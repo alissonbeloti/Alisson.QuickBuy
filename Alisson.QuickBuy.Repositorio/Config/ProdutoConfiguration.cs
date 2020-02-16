@@ -11,8 +11,8 @@ namespace Alisson.QuickBuy.Repositorio.Config
             builder.HasKey(u => u.Id);
             builder.Ignore(u => u.EhValido);
             builder.Property(u => u.Preco).IsRequired();
-            builder.Property(u => u.Nome).HasMaxLength(100).IsRequired().HasColumnType("varchar");
-            builder.Property(u => u.Descricao).HasMaxLength(400).IsRequired().HasColumnType("varchar");
+            builder.Property(u => u.Nome).HasMaxLength(100).IsRequired();
+            builder.Property(u => u.Descricao).HasMaxLength(400).IsRequired();
 
             builder.HasMany(p => p.ItensPedidos).WithOne(i => i.Produto).HasForeignKey(i => i.ProdutoId);
         }

@@ -27,13 +27,11 @@ namespace Alisson.QuickBuy.Web
             services.AddControllersWithViews();
             var conectionString = Configuration.GetConnectionString("MySqlConnection");
             services.AddDbContext<QuickBuyContexto>(options =>
-            {
-                options.UseLazyLoadingProxies();
-                options.UseMySql(conectionString, (
+                options.UseLazyLoadingProxies().UseMySql(conectionString, (
                     m => m.MigrationsAssembly("Alisson.QuickBuy.Repositorio")
                     )
-                );
-            });
+                )
+            );
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
