@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Alisson.QuickBuy.Dominio.ObjetoDeValor;
 
 namespace Alisson.QuickBuy.Dominio.Entidades
 {
-    public class Pedido
+    public class Pedido : Entidade
     {
         public int Id { get; set; }
         public DateTime DataPedido { get; set; }
         public int UsuarioId { get; set; }
+        public virtual Usuario Usuario { get; set; }
         public DateTime PrevisaoEntrega { get; set; }
         public string Cep { get; set; }
         public string Estado { get; set; }
@@ -19,5 +21,16 @@ namespace Alisson.QuickBuy.Dominio.Entidades
         public FormaPagamento FormaPagamento { get; set; }
 
         public ICollection<ItemPedido> ItensPedido { get; set; }
+
+        public override void Validate()
+        {
+            LimparMensagensValidacao();
+            if (!ItensPedido.Any())
+                AdicionarMensagensValidacao("O pedido não contém itens.");
+            if (string.IsNullOrEmpty(Cep))
+                AdicionarMensagensValidacao("O cep é obrigatório.");
+            if (FormaPagamentoId == 0)
+                AdicionarMensagensValidacao("Informe a forma de pagamento.");
+        }
     }
 }
