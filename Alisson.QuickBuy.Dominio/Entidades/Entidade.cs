@@ -12,7 +12,7 @@ namespace Alisson.QuickBuy.Dominio.Entidades
             } }
         public abstract void Validate();
         public bool EhValido { get {
-                return !mensagemValidacao.Any();
+                return mensagemValidacao != null? !mensagemValidacao.Any(): true;
             } 
         }
         protected void LimparMensagensValidacao()

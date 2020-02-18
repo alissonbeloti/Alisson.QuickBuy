@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Alisson.QuickBuy.Repositorio.Contexto;
 using Microsoft.EntityFrameworkCore;
+using Alisson.QuickBuy.Dominio.Contratos;
+using Alisson.QuickBuy.Repositorio.Repositorios;
 
 namespace Alisson.QuickBuy.Web
 {
@@ -32,7 +34,8 @@ namespace Alisson.QuickBuy.Web
                     )
                 )
             );
-
+            services.AddCors();
+            services.AddScoped<IProdutoRepositorio, ProdutoRepositorio>();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -60,7 +63,7 @@ namespace Alisson.QuickBuy.Web
             {
                 app.UseSpaStaticFiles();
             }
-
+            
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
@@ -69,6 +72,8 @@ namespace Alisson.QuickBuy.Web
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
             });
+            //precisei colocar para os testes
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseSpa(spa =>
             {
