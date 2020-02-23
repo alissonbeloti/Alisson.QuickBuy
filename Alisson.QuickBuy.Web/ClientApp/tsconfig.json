@@ -17,6 +17,6 @@
       "es2017",
       "dom"
     ],
-    "charset": "utf-8"
+    "charset": "utf8"
   }
 }
