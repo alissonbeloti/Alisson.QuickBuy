@@ -4,13 +4,16 @@
     <label for="inputEmail" class="sr-only">Email</label>
     <input type="email" id="inputEmail" name="email" placeholder="Informe seu e-mail"
            class="form-control mb-2"
-           [ngClass]="'is-invalid'"
+           [ngClass]="{
+            'is-invalid':email.invalid && (email.durty || email.touched),
+            'is-valid':email.valid && (email.durty || email.touched)
+           }"
            (keypress)="onKeypress"
            [(ngModel)]="usuario.email"
            #email="ngModel"
            email
            required />
-    <div class="alert alert-danger" *ngIf="email.invalid && (email.durty || email.touched)">
+    <div class="invalid-feedback mb-2" *ngIf="email.invalid && (email.durty || email.touched)">
       <div *ngIf="email.errors.required">
         Email é obrigatório
       </div>
@@ -19,11 +22,16 @@
       </div>
     </div>
     <label for="senha" class="sr-only">Senha</label>
-    <input type="password" id="senha" placeholder="senha" name="senha" class="form-control mb-3"
+    <input type="password" id="senha" placeholder="senha" name="senha"
+           class="form-control mb-3"
+           [ngClass]="{
+            'is-invalid':senha.invalid && (senha.durty || senha.touched),
+            'is-valid':senha.valid && (senha.durty || senha.touched)
+           }"
            [(ngModel)]="usuario.senha"
            #senha="ngModel"
            required />
-    <div class="alert alert-danger" *ngIf="senha.invalid && (senha.durty || senha.touched)">
+    <div class="invalid-feedback mb-2" *ngIf="senha.invalid && (senha.durty || senha.touched)">
       <div *ngIf="senha.errors.required">
         Senha é obrigatória
       </div>
