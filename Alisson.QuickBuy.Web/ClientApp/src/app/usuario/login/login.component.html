@@ -3,10 +3,34 @@
     <h1 class="h4 mb-2 login">Login do Cliente</h1>
     <label for="inputEmail" class="sr-only">Email</label>
     <input type="email" id="inputEmail" name="email" placeholder="Informe seu e-mail"
-           class="form-control mb-2" (keypress)="onKeypress"/>
+           class="form-control mb-2"
+           [ngClass]="'is-invalid'"
+           (keypress)="onKeypress"
+           [(ngModel)]="usuario.email"
+           #email="ngModel"
+           email
+           required />
+    <div class="alert alert-danger" *ngIf="email.invalid && (email.durty || email.touched)">
+      <div *ngIf="email.errors.required">
+        Email é obrigatório
+      </div>
+      <div *ngIf="email.errors.email">
+        Email no formato incorreto.
+      </div>
+    </div>
     <label for="senha" class="sr-only">Senha</label>
-    <input type="password" id="senha" placeholder="senha" name="senha" class="form-control mb-3" />
+    <input type="password" id="senha" placeholder="senha" name="senha" class="form-control mb-3"
+           [(ngModel)]="usuario.senha"
+           #senha="ngModel"
+           required />
+    <div class="alert alert-danger" *ngIf="senha.invalid && (senha.durty || senha.touched)">
+      <div *ngIf="senha.errors.required">
+        Senha é obrigatória
+      </div>
+    </div>
+
     <button class="btn btn-primary btn-block" type="submit" (click)="entrar()">Entrar</button>
-        <img src="..\..\..\assets\img\logo.jpg" />"  
+    <img src="..\..\..\assets\img\logo.jpg" />"
+
   </form>
 </div>
