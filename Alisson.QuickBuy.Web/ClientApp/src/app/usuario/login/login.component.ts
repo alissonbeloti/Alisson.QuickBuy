@@ -48,6 +48,9 @@ export class LoginComponent implements OnInit {
     //  this.router.navigate([this.returnUrl])
     //}
   }
+  cadastrarUsuario() {
+    this.router.navigate([`cadastrar-usuario`])
+  }
   onKeypress() {
 
   }
