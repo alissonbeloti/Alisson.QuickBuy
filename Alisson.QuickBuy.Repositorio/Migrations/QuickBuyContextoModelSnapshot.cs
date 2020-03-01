@@ -104,8 +104,11 @@ namespace Alisson.QuickBuy.Repositorio.Migrations
                         .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
                         .HasMaxLength(100);
 
+                    b.Property<string>("NomeArquivo")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
                     b.Property<decimal>("Preco")
-                        .HasColumnType("decimal(65,30)");
+                        .HasColumnType("decimal(19,4)");
 
                     b.HasKey("Id");
 

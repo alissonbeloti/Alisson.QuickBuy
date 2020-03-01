@@ -13,9 +13,9 @@ export class ProdutoServico implements OnInit {
   constructor(private http: HttpClient, @Inject("BASE_URL") baseUrl: string) {
     this.baseURL = baseUrl
   }
-    ngOnInit(): void {
-      this.produtos = [];
-    }
+  ngOnInit(): void {
+    this.produtos = [];
+  }
 
   get headers(): HttpHeaders {
     return new HttpHeaders().set('content-type', 'application/json')
@@ -48,5 +48,11 @@ export class ProdutoServico implements OnInit {
   public obterProduto(produtoId: number): Observable<Produto> {
     //delete
     return this.http.get<Produto>(`${this.baseURL}produto/${produtoId}`);
+  }
+
+  public enviarArquivo(arquivoSelecionado: File): Observable<any> {
+    const formData: FormData = new FormData()
+    formData.append("arquivoEnviado", arquivoSelecionado, arquivoSelecionado.name)
+    return this.http.post<string>(`${this.baseURL}produto/enviarArquivo`, formData)
   }
 }

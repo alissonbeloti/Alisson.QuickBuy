@@ -9,6 +9,8 @@ using Alisson.QuickBuy.Repositorio.Contexto;
 using Microsoft.EntityFrameworkCore;
 using Alisson.QuickBuy.Dominio.Contratos;
 using Alisson.QuickBuy.Repositorio.Repositorios;
+using AutoMapper;
+using Microsoft.AspNetCore.Http;
 
 namespace Alisson.QuickBuy.Web
 {
@@ -27,6 +29,7 @@ namespace Alisson.QuickBuy.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             var conectionString = Configuration.GetConnectionString("MySqlConnection");
             services.AddDbContext<QuickBuyContexto>(options =>
                 options.UseLazyLoadingProxies().UseMySql(conectionString, (
@@ -34,6 +37,8 @@ namespace Alisson.QuickBuy.Web
                     )
                 )
             );
+            services.AddAutoMapper(typeof(Startup));
+
             services.AddCors();
             services.AddScoped<IProdutoRepositorio, ProdutoRepositorio>();
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();

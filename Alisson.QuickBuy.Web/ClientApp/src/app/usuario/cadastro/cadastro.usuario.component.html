@@ -1,4 +1,4 @@
-<div class="text-center">
+  <div class="text-center">
   <form class="form-signin">
     <h1 class="h4 mb-2 login">Criar Conta</h1>
     <label for="inputEmail" class="sr-only">Email</label>
@@ -70,15 +70,22 @@
         Sobrenome é de preenchimento obrigatório.
       </div>
     </div>
-
-    <button class="btn btn-primary btn-block" type="submit" (click)="cadastrarUsuario()">
-      Confirmar
-    </button>
+    
+      <button class="btn btn-primary btn-block mb-3" type="submit" (click)="cadastrarUsuario()" [disabled]="ativar_spinner">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="ativar_spinner"></span>
+        Confirmar
+      </button>
+    
     <a [routerLink]="['/entrar']">Voltar</a>
     <div class="alert alert-danger" *ngIf="mensagem">
       {{mensagem}}
     </div>
-    <!--<img src="..\..\..\assets\img\logo.jpg" />-->
+
+    <div class="alert alert-success" *ngIf="usuarioCadastrado">
+      Usuário cadastrado com sucesso. <a class="alert-link" [routerLink]='["/entrar"]'>Clique aqui</a> para entrar no sistema.
+    </div>
+
+    <img src="..\..\..\assets\img\logo.jpg" />
 
   </form>
 </div>

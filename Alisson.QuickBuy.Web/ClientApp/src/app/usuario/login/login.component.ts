@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.usuario = new Usuario()
     this.returnUrl = this.activatedRouter.snapshot.queryParams['returnUrl']
+    this.ativarSpinner = false
   }
 
   entrar() {

@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using Alisson.QuickBuy.Dominio.Contratos;
 using Alisson.QuickBuy.Dominio.Entidades;
 using Alisson.QuickBuy.Web.EntityUI;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Alisson.QuickBuy.Web.Controllers
@@ -15,9 +17,12 @@ namespace Alisson.QuickBuy.Web.Controllers
     public class UsuarioController : ControllerBase
     {
         private readonly IUsuarioRepositorio usuarioRepositorio;
-        public UsuarioController(IUsuarioRepositorio usuarioRepositorio)
+        private readonly IMapper mapper;
+
+        public UsuarioController(IUsuarioRepositorio usuarioRepositorio, IMapper mapper)
         {
             this.usuarioRepositorio = usuarioRepositorio;
+            this.mapper = mapper;
         }
 
         [AllowAnonymous]
@@ -31,8 +36,7 @@ namespace Alisson.QuickBuy.Web.Controllers
                 var usuarioRetorno = usuarioRepositorio.Obter(usuario.Email, usuario.Senha);
                 if (usuarioRetorno != null)
                 {
-                    usuario.Id = usuarioRetorno.Id;
-                    return Ok(usuario);
+                    return Ok(mapper.Map<UsuarioDTO>(usuarioRetorno));
                 }
                 else
                     return BadRequest("Usuário não encontrado!");
@@ -44,12 +48,20 @@ namespace Alisson.QuickBuy.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post()
+        public IActionResult Post(UsuarioDTO usuarioDTO)
         {
 
             try
             {
-                return Ok();
+                var usuarioCadastrado = usuarioRepositorio.Obter(usuarioDTO.Email);
+                if (usuarioCadastrado != null)
+                {
+                    return BadRequest("Usuário existente!");
+                }
+                usuarioCadastrado = mapper.Map<Usuario>(usuarioDTO);
+                this.usuarioRepositorio.Adicionar(usuarioCadastrado);
+                usuarioDTO = mapper.Map<UsuarioDTO>(usuarioCadastrado);
+                return Ok(usuarioDTO);
             }
             catch (Exception ex)
             {

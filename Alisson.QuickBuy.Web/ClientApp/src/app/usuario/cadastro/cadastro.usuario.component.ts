@@ -9,7 +9,10 @@ import { Usuario } from '../../modelo/usuario'
 })
 
 export class CadastroUsuarioComponent implements OnInit {
+  public mensagem: string
+  public ativar_spinner: boolean
   public usuario: Usuario
+  public usuarioCadastrado: boolean
   constructor(private usuarioServico: UsuarioServico) {
 
   }
@@ -17,13 +20,18 @@ export class CadastroUsuarioComponent implements OnInit {
       this.usuario = new Usuario()
   }
   public cadastrarUsuario() {
+    this.ativar_spinner = true
     this.usuarioServico.cadastrarUsuario(this.usuario)
       .subscribe(
         usuarioJson => {
-          //this.usuario
+          this.usuarioCadastrado = true
+          this.mensagem = ""
+          this.ativar_spinner = false
         },
         err => {
-
+          this.usuarioCadastrado = false
+          this.mensagem = err.error;
+          this.ativar_spinner = false
         }
       )
   }

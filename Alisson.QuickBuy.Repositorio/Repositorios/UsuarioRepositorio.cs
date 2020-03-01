@@ -18,5 +18,10 @@ namespace Alisson.QuickBuy.Repositorio.Repositorios
         {
             return this.QuickBuyContexto.Usuarios.FirstOrDefault(u => u.Email == email && u.Senha == senha);
         }
+
+        public Usuario Obter(string email)
+        {
+            return this.QuickBuyContexto.Usuarios.FirstOrDefault(u => u.Email == email);
+        }
     }
 }
