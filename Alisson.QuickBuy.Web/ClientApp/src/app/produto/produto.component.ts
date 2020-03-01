@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { Produto } from '../modelo/produto'
 import { ProdutoServico } from '../servicos/produto/produto.servico'
+import { Router } from '@angular/router'
 
 @Component({
   selector: "cadastro-produto",
@@ -15,7 +16,7 @@ export class ProdutoComponent implements OnInit {
   public mensagem: string
   public cadastrado: boolean
 
-  constructor(private produtoServico: ProdutoServico) {
+  constructor(private produtoServico: ProdutoServico, private router: Router) {
 
   }
   ngOnInit(): void {
@@ -33,6 +34,7 @@ export class ProdutoComponent implements OnInit {
           console.log(produtoJson)
           this.ativarSpinner = false
           this.cadastrado = true
+          this.router.navigate(['/pesquisar-produto'])
         },
         e => {
           console.log(e.error)

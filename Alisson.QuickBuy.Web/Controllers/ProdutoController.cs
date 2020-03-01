@@ -37,19 +37,20 @@ namespace Alisson.QuickBuy.Web.Controllers
         {
             try
             {
-                List<ProdutoLista> produtosLista = new List<ProdutoLista>();
+                //List<ProdutoLista> produtosLista = new List<ProdutoLista>();
                 var produtos = produtoRepositorio.ObterTodos();
-                foreach (var produto in produtos)
-                {
-                    produtosLista.Add(new ProdutoLista()
-                    {
-                        Descricao = produto.Descricao,
-                        Id = produto.Id,
-                        Nome = produto.Nome,
-                        Preco = produto.Preco
-                    });
-                }
-                return Ok(produtosLista);
+                //foreach (var produto in produtos)
+                //{
+                //    produtosLista.Add(new ProdutoLista()
+                //    {
+                //        Descricao = produto.Descricao,
+                //        Id = produto.Id,
+                //        Nome = produto.Nome,
+                //        Preco = produto.Preco
+                //    });
+                //}
+                //return Ok(produtosLista);
+                return Ok(produtos);
             }
             catch (Exception ex)
             {
