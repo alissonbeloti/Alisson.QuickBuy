@@ -53,13 +53,16 @@
     <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Enviar</button>
   </div>-->
 </div>
-
-<button class="btn btn-primary col-md-4 mb-3" type="submit" (click)="cadastrar()"
-        [disabled]="ativarSpinner">
-  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="ativarSpinner"></span>
-  Cadastrar
-</button>
-
+<div class="form-inline">
+  <button class="btn btn-primary col-md-2" style="margin-right:2px" type="submit" (click)="cadastrar()"
+          [disabled]="ativarSpinner">
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="ativarSpinner"></span>
+    Cadastrar
+  </button>
+  <button class="btn btn-secondary col-md-2" style="margin-left:2px" type="submit" [routerLink]="['/pesquisar-produto']">
+    Voltar
+  </button>
+</div>
 <div class="alert alert-danger col-md-4" *ngIf="mensagem">
   {{mensagem}}
 </div>

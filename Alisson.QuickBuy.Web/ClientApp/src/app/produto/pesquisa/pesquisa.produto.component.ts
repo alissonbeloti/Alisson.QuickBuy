@@ -38,7 +38,24 @@ export class PesquisaProdutoComponent implements OnInit {
     console.log('AdicionarProduto')
     this.router.navigate(['/cadastro-produto'])
   }
-
-  
+  public deletarProduto(id: string) {
+    var retorno = confirm("Deseja realmente excluir esse produto?")
+    this.ativarSpinner = true
+    if (retorno) {
+      this.produtoServico.deletar(id)
+        .subscribe(produtos => {
+          this.produtos = produtos
+          this.ativarSpinner = false
+        },
+          e => {
+            this.mensagem = e.error
+            this.ativarSpinner = false
+          })
+    }
+  }
+  public editarProduto(produto: Produto) {
+    sessionStorage.setItem('produtoEditar', JSON.stringify(produto))
+    this.router.navigate(['/cadastro-produto'])
+  }
 
 }

@@ -87,6 +87,27 @@ namespace Alisson.QuickBuy.Web.Controllers
             }
         }
 
+        [HttpPut]
+        public IActionResult Put(Produto produto)
+        {
+            try
+            {
+                //var produtoMap = mapper.Map<Produto>(produto);
+                //produtoMap.Validate();
+                if (!produto.EhValido)
+                {
+                    return BadRequest(produto.ObterMensagensValidacao());
+                }
+                produtoRepositorio.Atualizar(produto);
+                //produto = this.mapper.Map<ProdutoLista>(produtoMap);
+                return Accepted(produto);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         [HttpPost("EnviarArquivo")]
         public IActionResult EnviarArquivo()
         {
@@ -112,14 +133,15 @@ namespace Alisson.QuickBuy.Web.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             try
             {
                 var produto = produtoRepositorio.ObterPorId(id);
                 produtoRepositorio.Remover(produto);
-                return Ok();
+                var produtos = produtoRepositorio.ObterTodos();
+                return Ok(produtos);
             }
             catch (Exception ex)
             {

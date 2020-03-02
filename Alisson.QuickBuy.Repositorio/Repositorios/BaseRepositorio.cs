@@ -19,7 +19,7 @@ namespace Alisson.QuickBuy.Repositorio.Repositorios
             QuickBuyContexto.SaveChanges();
         }
 
-        public void Atualiazar(TEntity entity)
+        public void Atualizar(TEntity entity)
         {
             this.QuickBuyContexto.Set<TEntity>().Update(entity);
             QuickBuyContexto.SaveChanges();

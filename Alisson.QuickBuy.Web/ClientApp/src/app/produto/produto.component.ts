@@ -20,7 +20,13 @@ export class ProdutoComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.produto = new Produto()
+    var produtoSessao = sessionStorage.getItem('produtoEditar')
+    if (produtoSessao) {
+      this.produto = JSON.parse(produtoSessao)
+    }
+    else {
+      this.produto = new Produto()
+    }
     this.cadastrado = false
     this.mensagem = null
   }
@@ -28,20 +34,37 @@ export class ProdutoComponent implements OnInit {
   public cadastrar() {
     this.ativarSpinner = true
     this.mensagem = null
-    this.produtoServico.cadastrarProduto(this.produto)
-      .subscribe(
-        produtoJson => {
-          console.log(produtoJson)
-          this.ativarSpinner = false
-          this.cadastrado = true
-          this.router.navigate(['/pesquisar-produto'])
-        },
-        e => {
-          console.log(e.error)
-          this.mensagem = e.error
-          this.ativarSpinner = false
-        }
-      )
+    if (this.produto.id > 0) {
+      this.produtoServico.salvar(this.produto)
+        .subscribe(
+          produtoJson => {
+            this.ativarSpinner = false
+            this.cadastrado = true
+            this.router.navigate(['/pesquisar-produto'])
+          },
+          e => {
+            console.log(e.error)
+            this.mensagem = e.error
+            this.ativarSpinner = false
+          }
+        )
+    }
+    else {
+      this.produtoServico.cadastrarProduto(this.produto)
+        .subscribe(
+          produtoJson => {
+            console.log(produtoJson)
+            this.ativarSpinner = false
+            this.cadastrado = true
+            this.router.navigate(['/pesquisar-produto'])
+          },
+          e => {
+            console.log(e.error)
+            this.mensagem = e.error
+            this.ativarSpinner = false
+          }
+        )
+    }
   }
 
   public inputChange(files: FileList) {
@@ -50,13 +73,11 @@ export class ProdutoComponent implements OnInit {
     this.produtoServico.enviarArquivo(this.arquivoSelecionado)
       .subscribe(
         ok => {
-          alert(ok.nomeArquivo)
           this.produto.nomeArquivo = ok.nomeArquivo
           console.log("nome retorno: " + ok.nomeArquivo)
           this.ativarSpinner = false
           //this.cadastrado = true
         }, e => {
-          alert(e.error)
           this.produto.nomeArquivo = ""
           this.ativarSpinner = false
           //this.cadastrado = false
