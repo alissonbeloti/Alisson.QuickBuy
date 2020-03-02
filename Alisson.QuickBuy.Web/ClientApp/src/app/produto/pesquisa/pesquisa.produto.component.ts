@@ -36,6 +36,7 @@ export class PesquisaProdutoComponent implements OnInit {
 
   public adicionarProduto() {
     console.log('AdicionarProduto')
+    sessionStorage.setItem('produtoEditar', '')
     this.router.navigate(['/cadastro-produto'])
   }
   public deletarProduto(id: string) {

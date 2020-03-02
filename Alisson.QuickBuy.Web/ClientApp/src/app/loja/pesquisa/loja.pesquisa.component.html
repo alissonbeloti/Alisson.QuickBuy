@@ -1,0 +1,16 @@
+<h1 class="h4" *ngIf="!produtos">Listando produtos...</h1>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-sm-4 mb-2"  *ngFor="let p of produtos">
+      <div class="card">
+        <img class="card-top" style="width:200px;height:200px" src="/arquivos/{{p.nomeArquivo}}" /> 
+        <div class="card-body">
+          <!--<h5 class="card-title">{{p.nome}}</h5>-->
+          <div class="card-text">{{p.descricao | truncate: 40}} </div>
+          <h5 class="h6">Preço: {{p.preco}} </h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
