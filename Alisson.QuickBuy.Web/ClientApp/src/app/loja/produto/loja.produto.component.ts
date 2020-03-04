@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { Produto } from '../../modelo/produto'
 import { ProdutoServico } from '../../servicos/produto/produto.servico'
 import { Router } from '@angular/router'
+import { LojaCarrinhoCompras } from '../carrinho/loja.carrinho.compras'
 
 @Component({
   selector: "loja-app-produto",
@@ -12,23 +13,21 @@ import { Router } from '@angular/router'
 export class LojaProdutoComponent implements OnInit {
   public ativarSpinner: boolean
   public produto: Produto
-  public arquivoSelecionado: File
-  public mensagem: string
-  public cadastrado: boolean
+  public carrinho: LojaCarrinhoCompras;
 
   constructor(private produtoServico: ProdutoServico, private router: Router) {
 
   }
   ngOnInit(): void {
-    var produtoSessao = sessionStorage.getItem('produtoEditar')
+    this.carrinho = new LojaCarrinhoCompras()
+    var produtoSessao = sessionStorage.getItem('produtoDetalhe')
     if (produtoSessao) {
       this.produto = JSON.parse(produtoSessao)
     }
-    else {
-      this.produto = new Produto()
-    }
-    this.cadastrado = false
-    this.mensagem = null
   }
 
+  public comprar() {
+    this.carrinho.adicionar(this.produto)
+    this.router.navigate(['/loja-efetivar'])
+  }
 }

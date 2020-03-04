@@ -33,5 +33,8 @@ export class LojaPesquisaComponent implements OnInit {
           this.ativarSpinner = false
         })
   }
-
- }
+  public abrirProduto(p: Produto) {
+    sessionStorage.setItem('produtoDetalhe', JSON.stringify(p))
+    this.router.navigate(['/loja-produto'])
+  }
+}
