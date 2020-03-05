@@ -4,4 +4,7 @@ export class Produto {
   descricao: string
   preco: number
   nomeArquivo: string
+  //esses dois deveriam fazer parte do item carrinho
+  quantidade: number
+  precoUnitario: number
 }

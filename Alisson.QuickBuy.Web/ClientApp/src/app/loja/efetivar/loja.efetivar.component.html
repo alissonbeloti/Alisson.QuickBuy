@@ -9,15 +9,21 @@
             <th></th>
             <th>Produto</th>
             <th>Quantidade</th>
-            <th>Preço</th>
+            <th style="text-align:right;">Preço</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let p of produtos">
-            <td style="width:18%"><img style="width:40%;height:10%" src="/arquivos/{{p.nomeArquivo}}" /></td>
-            <td style="width:50%">{{p.descricao}}</td>
-            <td style="width:15%"> <input type="number" class="form-control" value="1" /></td>
-            <td style="width:17%">R$ {{p.preco}}</td>
+            <td style="width:15%"><img style="width:40%;height:10%" src="/arquivos/{{p.nomeArquivo}}" /></td>
+            <td style="width:45%">{{p.descricao}}</td>
+            <td style="width:15%">
+              <input type="number" class="form-control" [(ngModel)]="p.quantidade"
+                     #quantidade="ngModel" (change)="atualizarPreco(p)" />
+            </td>
+            <td style="width:15%;text-align:right;">R$ {{p.preco | number:'1.0-2'}}</td>
+            <td style="width:10%"><button class="btn btn-danger btn-sm" (click)="remover(p)">Remover</button></td>
+            
           </tr>
         </tbody>
       </table>
@@ -32,10 +38,10 @@
                 <strong>Total:</strong>
               </div>
               <div class="col-md-7" style="text-align:right">
-                R$ 1.800,00
+                {{total | number:'1.0-2'}}
               </div>
             </div>
-            <div class="row  mb-5" style="text-align:center"><button style="width:90%;" class="btn btn-success">Finalizar</button></div>
+            <div class="row  mb-5" style="text-align:center"><button style="width:100%;" class="btn btn-success">Finalizar</button></div>
           </div>
         </div>
       </div>
