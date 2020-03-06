@@ -1,4 +1,4 @@
-<header>
+  <header>
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
     <div class="container">
       <a class="navbar-brand" [routerLink]="['/']">QuickBuy</a>
@@ -21,12 +21,12 @@
             <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
           </li>
           <!--<li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/counter']">Counter</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/fetch-data']">Fetch data</a>
-          </li>-->
-          <li class="nav-item" [routerLinkActive]="['link-active']">
+    <a class="nav-link text-dark" [routerLink]="['/counter']">Counter</a>
+  </li>
+  <li class="nav-item" [routerLinkActive]="['link-active']">
+    <a class="nav-link text-dark" [routerLink]="['/fetch-data']">Fetch data</a>
+  </li>-->
+          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="ehAdministrador">
             <a class="nav-link text-dark" [routerLink]="['/pesquisar-produto']">Produto</a>
           </li>
 
@@ -40,9 +40,16 @@
               <li class="dropdown-item" role="menu" [routerLink]="['/sair']" (click)="sair()">Sair</li>
             </ul>
           </li>
+
+          <li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="temItensCarrinho()">
+            <a class="nav-link te xt-dark" [routerLink]="['/loja-efetivar']">
+              <img src="..\assets\img\cart.png" style="width:20px;height:20px" />
+            </a>
+          </li>
+
           <!--<li class="nav-item" [routerLinkActive]="['link-active']" *ngIf="usuarioLogado()">
-            <a class="nav-link text-dark" [routerLink]="['']" (click)="sair()">Sair</a>
-          </li>-->
+    <a class="nav-link text-dark" [routerLink]="['']" (click)="sair()">Sair</a>
+  </li>-->
 
         </ul>
       </div>

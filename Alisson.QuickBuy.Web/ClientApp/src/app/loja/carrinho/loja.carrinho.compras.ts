@@ -22,7 +22,9 @@ export class LojaCarrinhoCompras {
     if (produtoLocalStorage) {
       return JSON.parse(produtoLocalStorage)
     }
-    
+    else {
+      return this.produtos
+    }
   }
   public salvarCarrinho(prods: Produto[]) {
     console.log(`Lista de produtos: ${JSON.stringify(prods)}` )
@@ -32,5 +34,8 @@ export class LojaCarrinhoCompras {
     this.produtos = JSON.parse(localStorage.getItem("produtosCarrinho"))
     this.produtos = this.produtos.filter(prd => prd.id != produto.id)
     localStorage.setItem("produtosCarrinho", JSON.stringify(this.produtos))
+  }
+  public temItensCarrinho(): boolean {
+    return this.ObterProdutos().length > 0
   }
 }

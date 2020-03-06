@@ -3,6 +3,9 @@ import { Produto } from '../../modelo/produto'
 import { ProdutoServico } from '../../servicos/produto/produto.servico'
 import { Router } from '@angular/router'
 import { LojaCarrinhoCompras } from '../carrinho/loja.carrinho.compras'
+import { Pedido } from '../../modelo/pedido'
+import { UsuarioServico } from '../../servicos/usuario/usuario.servico'
+import { ItemPedido } from '../../modelo/itemPedido'
 
 
 @Component({
@@ -17,7 +20,7 @@ export class LojaEfetivarComponent implements OnInit {
   public mensagem: string
   public total: number
 
-  constructor(private produtoServico: ProdutoServico, private router: Router) {
+  constructor(private usuarioServico: UsuarioServico, private router: Router) {
 
   }
 
@@ -43,5 +46,27 @@ export class LojaEfetivarComponent implements OnInit {
   }
   private calcularTotal() {
     this.total = this.produtos.reduce((acc, produto) => acc + produto.preco, 0) //é um acumulador de valor
+  }
+  public efetivarCompra() {
+    let pedido = this.criarPedido()
+
+  }
+  public criarPedido(): Pedido {
+    let pedido = new Pedido()
+    pedido.usuarioId = this.usuarioServico.usuario.id
+    pedido.cep = "154546"
+    pedido.cidade = "Sorocaba"
+    pedido.estado = "SP"
+    pedido.enderecoCompleto = "Rua que sobe e desce nuca aparece"
+    pedido.formaPagamentoId = 1
+
+    this.produtos = this.carrinho.ObterProdutos()
+    for (let produto of this.produtos) {
+      let itemPedido = new ItemPedido()
+      itemPedido.produtoId = produto.id
+      itemPedido.quantidade = produto.quantidade
+      pedido.itensPedido.push(itemPedido)
+    }
+    return pedido
   }
 }

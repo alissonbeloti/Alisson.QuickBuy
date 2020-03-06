@@ -10,6 +10,7 @@ namespace Alisson.QuickBuy.Dominio.Entidades
         public string Nome { get; set; }
         public string Sobrenome { get; set; }
 
+        public bool EhAdministrador { get; set; }
         public virtual ICollection<Pedido> Pedidos { get; set; }
 
         public override void Validate()
