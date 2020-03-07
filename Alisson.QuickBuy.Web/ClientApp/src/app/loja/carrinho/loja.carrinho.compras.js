@@ -38,6 +38,9 @@ var LojaCarrinhoCompras = /** @class */ (function () {
     LojaCarrinhoCompras.prototype.temItensCarrinho = function () {
         return this.ObterProdutos().length > 0;
     };
+    LojaCarrinhoCompras.prototype.limparCarrinho = function () {
+        localStorage.setItem("produtosCarrinho", "");
+    };
     return LojaCarrinhoCompras;
 }());
 exports.LojaCarrinhoCompras = LojaCarrinhoCompras;

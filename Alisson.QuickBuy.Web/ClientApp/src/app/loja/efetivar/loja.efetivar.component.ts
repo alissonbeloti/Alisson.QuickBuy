@@ -6,6 +6,7 @@ import { LojaCarrinhoCompras } from '../carrinho/loja.carrinho.compras'
 import { Pedido } from '../../modelo/pedido'
 import { UsuarioServico } from '../../servicos/usuario/usuario.servico'
 import { ItemPedido } from '../../modelo/itemPedido'
+import { PedidoServico } from '../../servicos/pedido/pedido.servico'
 
 
 @Component({
@@ -20,7 +21,7 @@ export class LojaEfetivarComponent implements OnInit {
   public mensagem: string
   public total: number
 
-  constructor(private usuarioServico: UsuarioServico, private router: Router) {
+  constructor(private usuarioServico: UsuarioServico, private pedidoServico: PedidoServico,private router: Router) {
 
   }
 
@@ -49,7 +50,19 @@ export class LojaEfetivarComponent implements OnInit {
   }
   public efetivarCompra() {
     let pedido = this.criarPedido()
+    this.pedidoServico.efetivarPedido(pedido)
+      .subscribe(
+        pedidoId => {
+          console.log(pedidoId)
+          sessionStorage.setItem("pedidoId", pedidoId.toString())
+          this.produtos = []
+          this.carrinho.limparCarrinho()
+          this.router.navigate(["/compra-realizada"])
+        },
+        e => {
 
+        }
+      )
   }
   public criarPedido(): Pedido {
     let pedido = new Pedido()

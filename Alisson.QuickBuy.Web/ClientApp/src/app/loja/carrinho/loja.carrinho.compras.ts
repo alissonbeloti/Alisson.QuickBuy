@@ -38,4 +38,7 @@ export class LojaCarrinhoCompras {
   public temItensCarrinho(): boolean {
     return this.ObterProdutos().length > 0
   }
+  public limparCarrinho() {
+    localStorage.setItem("produtosCarrinho", "")
+  }
 }
